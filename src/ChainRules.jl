@@ -11,6 +11,7 @@ using Random
 using RealDot: realdot
 using SparseArrays
 using Statistics
+using StaticArrays
 
 # Basically everything this package does is overloading these, so we make an exception
 # to the normal rule of only overload via `ChainRulesCore.rrule`.
@@ -54,5 +55,7 @@ include("rulesets/LinearAlgebra/uniformscaling.jl")
 include("rulesets/SparseArrays/sparsematrix.jl")
 
 include("rulesets/Random/random.jl")
+
+include("rulesets/StaticArrays/staticarrays.jl")
 
 end # module
