@@ -2,14 +2,14 @@
 ##### constructors
 #####
 
-ChainRules.@non_differentiable (::Type{T} where {T<:SArray})(::UndefInitializer, args...)
+ChainRules.@non_differentiable (::Type{T} where {T<:Union{SArray, SizedArray}})(::UndefInitializer, args...)
 
-function frule((_, ẋ), ::Type{T}, x::AbstractArray) where {T<:SArray}
-    return T(x), T(ẋ)
+function frule((_, ẋ), ::Type{T}, x::AbstractArray) where {T<:Union{SArray, SizedArray}}
+    return SArray(x), SArray(ẋ)
 end
 
-function rrule(::Type{T}, x::AbstractArray) where {T<:SArray}
+function rrule(::Type{T}, x::AbstractArray) where {T<:Union{SArray, SizedArray}}
     project_x = ProjectTo(x)
     Array_pullback(ȳ) = (NoTangent(), project_x(ȳ))
-    return T(x), Array_pullback
+    return SArray(x), Array_pullback
 end
